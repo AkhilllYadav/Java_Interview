@@ -1,0 +1,64 @@
+class Solution {
+    public int maxLengthBetweenEqualCharacters(String s) {
+       int[] firstIndex = new int[26];
+        int maxLength = -1;
+
+        for (int i = 0; i < s.length(); i++) {
+            char currentChar = s.charAt(i);
+            int charIndex = currentChar - 'a';
+
+            if (firstIndex[charIndex] == 0) {
+                // If first occurrence of the character, store its index
+                firstIndex[charIndex] = i + 1;
+            } else {
+                // If character is already seen, calculate the length of substring
+                int currentLength = i - firstIndex[charIndex];
+                maxLength = Math.max(maxLength, currentLength);
+            }
+        }
+return maxLength;
+    }
+}
+
+
+
+ Let me explain each part of the Java code
+
+---Initialization:----
+
+int[] firstIndex = new int[26];
+int maxLength = -1;
+
+We initialize an array firstIndex to keep track of the first index of each character encountered. It has a size of 26 because the problem specifies that the string contains only lowercase English letters.
+maxLength is initialized to -1, which will be updated with the length of the longest substring between two equal characters.
+
+
+----Iterating Through the String:----
+
+for (int i = 0; i < s.length(); i++) {
+    char currentChar = s.charAt(i);
+    int charIndex = currentChar - 'a';
+We iterate through each character in the input string s.
+currentChar represents the current character in the iteration.
+charIndex is calculated by subtracting the ASCII value of 'a' from the ASCII value of the current character. This gives us an index in the range 0 to 25, corresponding to the lowercase English alphabet.
+
+-----Checking First Occurrence:-----
+
+if (firstIndex[charIndex] == 0) {
+    // If first occurrence of the character, store its index
+    firstIndex[charIndex] = i + 1;
+If the current character is encountered for the first time (the value in firstIndex is 0), we store its index in the firstIndex array. We add 1 to the index to avoid confusion with zero-based indexing.
+
+------Calculating Substring Length:------
+
+} else {
+    // If character is already seen, calculate the length of substring
+    int currentLength = i - firstIndex[charIndex];
+    maxLength = Math.max(maxLength, currentLength);
+If the current character is encountered again, we calculate the length of the substring between the two occurrences by subtracting the first index from the current index.
+We update the maxLength with the maximum of its current value and the calculated substring length.
+
+-----Returning Result:------
+
+return maxLength;
+Finally, the method returns the maxLength, representing the length of the longest substring between two equal characters.
